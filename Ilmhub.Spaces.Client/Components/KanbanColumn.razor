@@ -1,0 +1,22 @@
+@using Ilmhub.Spaces.Client.Models
+
+<FluentCard
+    Style="border: 2px dotted rgba(0, 0, 0, .2); box-shadow: none;"
+    ondragover="event.preventDefault();"
+    @ondrop="HandleDrop">
+    
+    <FluentLabel Typo="Typography.Header">@Title</FluentLabel>
+
+    <div style="overflow-y: auto; max-height: 97%; margin-top: 20px;">
+        <FluentStack 
+            Style="padding-bottom: 10px;"
+            Orientation="Orientation.Vertical"
+            VerticalGap="10">
+            @foreach (var lead in Leads)
+            {
+                <KanbanCard Lead="lead" />
+            }
+        </FluentStack>
+    </div>
+
+</FluentCard>

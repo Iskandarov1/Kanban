@@ -1,0 +1,30 @@
+@using Ilmhub.Spaces.Client.Models
+
+<FluentCard Id="@($"lead-card-{Lead.Id}")" Width="100%" Height="150px" draggable="true" @ondragstart="@(() => HandleDragStart(Lead))">
+    
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentStack Orientation="Orientation.Horizontal">
+            <FluentOverflow Style="width: 100%;">
+                <FluentOverflowItem>
+                    <FluentBadge Appearance="Appearance.Neutral">@Lead!.Interest!.Category.ToString()</FluentBadge>
+                    <FluentBadge Appearance="Appearance.Neutral">@Lead!.Interest!.Level.ToString()</FluentBadge>
+                </FluentOverflowItem>
+            </FluentOverflow>
+            <FluentBadge Appearance="Appearance.Accent">@Lead!.Status.ToString()</FluentBadge>
+        </FluentStack>
+        <FluentSpacer/>
+        <FluentLabel Typo="Typography.Header">@Lead!.Name</FluentLabel>
+        <FluentSpacer/>
+        <FluentStack Orientation="Orientation.Horizontal">
+            <FluentLabel Color="Color.Disabled" Typo="Typography.Subject">#@Lead!.Source.ToString()!.ToLower()</FluentLabel>
+            <FluentSpacer/>
+            <FluentLabel Color="Color.Disabled" Typo="Typography.Subject">@Lead!.CreatedAt.ToString("yy/MM/dd HH:mm")</FluentLabel>
+        </FluentStack>
+    </FluentStack>
+</FluentCard>
+
+<FluentTooltip 
+    Anchor="@($"lead-card-{Lead.Id}")"
+    Delay="300"
+    MaxWidth="400px"
+    Position="TooltipPosition.Top">@Lead.Notes</FluentTooltip>

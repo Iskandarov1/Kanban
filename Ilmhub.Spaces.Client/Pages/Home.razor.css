@@ -1,0 +1,6 @@
+.search-add-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--design-unit-5) 0;
+}
