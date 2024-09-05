@@ -13,21 +13,12 @@ public partial class Home
     [Inject] ILeadDataService LeadDataService { get; set; } = default!;
 
     private string SearchTerm { get; set; } = string.Empty;
-    private bool isAddLeadDialogOpen = false;
-    private Lead newLead = new Lead();
-    private string selectedStatus = string.Empty;
-    private string selectedSource = string.Empty;
 
-    private List<Lead> Leads { get; set; } = new List<Lead>();
+    private List<Lead> Leads { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
         Leads = await LeadDataService.GetAllLeadsAsync();
-    }
-
-    private LeadSource GetSelectedSource()
-    {
-        return string.IsNullOrEmpty(selectedSource) ? LeadSource.Other : Enum.Parse<LeadSource>(selectedSource);
     }
 
     private List<Lead> FilteredLeads => Leads
@@ -50,16 +41,13 @@ public partial class Home
         {
             var newLead = (Lead)result.Data;
             var createdLead = await LeadDataService.CreateLeadAsync(newLead);
-            Leads.Add(createdLead);
+            
+            // Check if the lead already exists in the list before adding
+            if (!Leads.Any(l => l.Id == createdLead.Id))
+            {
+                Leads.Add(createdLead);
+                StateHasChanged(); // Notify the component to re-render
+            }
         }
-    }
-
-    private async Task AddNewLead()
-    {
-        newLead.Status = Enum.Parse<LeadStatus>(selectedStatus);
-        newLead.Source = Enum.Parse<LeadSource>(selectedSource);
-        var createdLead = await LeadDataService.CreateLeadAsync(newLead);
-        Leads.Add(createdLead);
-        isAddLeadDialogOpen = false;
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace Ilmhub.Spaces.Client.Pages;
 
-public class ProgramsBase : ComponentBase
+public partial class Programs
 {
     [Inject] protected ICourseDataService CourseDataService { get; set; } = default!;
 

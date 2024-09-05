@@ -14,6 +14,7 @@ public partial class KanbanColumn
     {
         if (KanbanCard.DraggedLead != null)
         {
+            KanbanCard.DraggedLead.ModifiedAt = DateTime.Now;
             await OnDrop.InvokeAsync(KanbanCard.DraggedLead);
             KanbanCard.DraggedLead = null;
         }
