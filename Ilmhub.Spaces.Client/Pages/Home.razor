@@ -1,9 +1,0 @@
-﻿@page "/"
-@page "/leads"
-
-<div class="search-add-container">
-    <FluentSearch Placeholder="Search by name or phone" @bind-Value="@SearchTerm" />
-    <FluentButton Appearance="Appearance.Accent" OnClick="OpenAddLeadDialogAsync">Add Lead</FluentButton>
-</div>
-
-<KanbanBoard Leads="@FilteredLeads"/>
